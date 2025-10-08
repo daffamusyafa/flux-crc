@@ -23,6 +23,10 @@ spec:
           image: ghcr.io/stefanprodan/podinfo:5.0.0
           ports:
             - containerPort: 9898
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
 ---
 apiVersion: v1
 kind: Service
@@ -31,9 +35,10 @@ metadata:
   namespace: podinfo-app
 spec:
   selector:
-    app: podinfo        # ✅ harus sama dengan label di Deployment
+    app: podinfo
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 9898
 ---
@@ -43,11 +48,11 @@ metadata:
   name: podinfo
   namespace: podinfo-app
 spec:
-  host: podinfo.studentdumbways.my.id   # ✅ Hostname custom
+  host: podinfo.studentdumbways.my.id
   to:
     kind: Service
     name: podinfo
   port:
-    targetPort: 80
+    targetPort: http
   tls:
     termination: edge
