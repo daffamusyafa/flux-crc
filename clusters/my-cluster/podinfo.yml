@@ -9,7 +9,7 @@ metadata:
   name: podinfo
   namespace: podinfo-app
 spec:
-  replicas: 17
+  replicas: 7
   selector:
     matchLabels:
       app: podinfo
