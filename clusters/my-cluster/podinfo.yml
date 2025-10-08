@@ -31,7 +31,8 @@ metadata:
   namespace: podinfo-app
 spec:
   selector:
-    app: podinfo
+      kustomize.toolkit.fluxcd.io/name: flux-system
+      kustomize.toolkit.fluxcd.io/namespace: flux-system
   ports:
     - protocol: TCP
       port: 80
