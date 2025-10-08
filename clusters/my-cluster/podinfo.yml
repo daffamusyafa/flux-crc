@@ -31,8 +31,7 @@ metadata:
   namespace: podinfo-app
 spec:
   selector:
-      kustomize.toolkit.fluxcd.io/name: flux-system
-      kustomize.toolkit.fluxcd.io/namespace: flux-system
+    app: podinfo        # ✅ harus sama dengan label di Deployment
   ports:
     - protocol: TCP
       port: 80
@@ -44,11 +43,11 @@ metadata:
   name: podinfo
   namespace: podinfo-app
 spec:
-  host: podinfo.studentdumbways.my.id   # ✅ Hostname khusus yang kamu inginkan
+  host: podinfo.studentdumbways.my.id   # ✅ Hostname custom
   to:
     kind: Service
     name: podinfo
   port:
     targetPort: 80
-  tls:                                   # (Opsional) gunakan jika ingin HTTPS
+  tls:
     termination: edge
